@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>reproducer-glue-4-incompatibility</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>Reproducer for AWSGlueETL-4.0.0 JAR Incompatibilities</name>
+    <description>AWS ETL application to reproduce https://github.com/awslabs/aws-glue-libs/issues/207</description>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>AWSGlueETL</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+
+        <!-- While this project is built in java, it loads a scala lib using scala collections -->
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>2.12.7</version>
+        </dependency>
+
+        <!-- The dependencies here below are necessary to fix yet another incompatibility in the pom file -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.17.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.17.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>2.17.0</version>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>aws-glue-etl-artifacts</id>
+            <url>https://aws-glue-etl-artifacts.s3.amazonaws.com/release/</url>
+        </repository>
+    </repositories>
+</project>
